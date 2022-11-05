@@ -15,6 +15,15 @@ Game::Game()
 	g_Game = this;
 }
 
+Game::~Game()
+{
+	for (auto gameObj : objects)
+	{
+		delete gameObj;
+	}
+	objects.clear();
+}
+
 void Game::OnUpdate(float dt)
 {
 	PIXScopedEvent(PIX_COLOR_INDEX(5), __FUNCTION__);
