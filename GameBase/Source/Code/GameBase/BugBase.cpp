@@ -7,14 +7,13 @@ const float BugBase::s_Velocity = 100.0f;
 
 void BugBase::Update(float dt)
 {
-	OnUpdate(dt);
-
 	g_GameBase->OnBugUpdate_Begin(this); // For testing purposes
 
 	BugBase* target = FindBugToEat();
 	if (!target)
 	{
 		g_GameBase->OnBugUpdate_End(this); // For testing purposes
+		OnUpdate(dt);
 		return;
 	}
 
@@ -31,6 +30,8 @@ void BugBase::Update(float dt)
 		angle = 90.0f + atan2(direction.y, direction.x) * 180.0f / std::numbers::pi_v<float>;
 
 	g_GameBase->OnBugUpdate_End(this); // For testing purposes
+
+	OnUpdate(dt);
 }
 
 Texture* BugBase::GetTexture() const
