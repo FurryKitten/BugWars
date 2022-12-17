@@ -1,6 +1,7 @@
 #pragma once
 #include "GameBase/GameBase.h"
 #include "Globals.h"
+#include "Grid.h"
 
 struct Tank;
 
@@ -16,4 +17,6 @@ struct Game : public GameBase
 	virtual void OnBugsSpawned() override;
 
 	std::vector<GameObject*> objects;
+
+	Grid grid;
 };

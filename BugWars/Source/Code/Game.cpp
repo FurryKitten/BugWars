@@ -10,7 +10,8 @@ Game* g_Game;
 Game::Game()
 	: GameBase({ [] {return new Tank; },
 				 [] {return new Bug; },
-				 [] {return new Bullet; } })
+				 [] {return new Bullet; } }),
+	  grid(Grid(MAP_SIZE / CELL_SIZE))
 {
 	g_Game = this;
 }
@@ -27,9 +28,21 @@ Game::~Game()
 void Game::OnUpdate(float dt)
 {
 	PIXScopedEvent(PIX_COLOR_INDEX(5), __FUNCTION__);
-	for (auto obj : objects)
-		if (!obj->disabled)
-			obj->Update(dt);
+	grid.updateCells();
+	for (auto it = objects.begin(); it != objects.end();)
+	{
+		if (!(*it)->disabled)
+		{
+			(*it)->Update(dt);
+			++it;
+		}
+		else
+		{
+			delete* it;
+			*it = nullptr;
+			it = objects.erase(it);
+		}
+	}
 }
 
 void Game::OnRender() const
@@ -43,9 +56,11 @@ void Game::AddObject(GameObject* object)
 {
 	object->disabled = false;
 	object->visible = true;
-	objects.push_back(object);
 	if (object->GetRTTI() == Bug::s_RTTI)
-		Log("I'm a bug");
+	{
+		grid.getCell(grid.getIndex(object->position.x), grid.getIndex(object->position.y)).objects.push_back(object);
+	}
+	objects.push_back(object);
 }
 
 void Game::OnBugsSpawned()

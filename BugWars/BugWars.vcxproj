@@ -88,6 +88,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Code\Grid.cpp" />
     <ClCompile Include="Source\Code\Bug.cpp" />
     <ClCompile Include="Source\Code\Bullet.cpp" />
     <ClCompile Include="Source\Code\Game.cpp" />
@@ -96,6 +97,7 @@
     <ClCompile Include="Source\Code\Tank.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Code\Grid.h" />
     <ClInclude Include="Source\Code\Bug.h" />
     <ClInclude Include="Source\Code\Bullet.h" />
     <ClInclude Include="Source\Code\Game.h" />
